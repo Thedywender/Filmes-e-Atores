@@ -7,4 +7,4 @@ const movieController = require('../controllers/movieController');
 
 router.post('/movies/:movieId/actors/:actorId', movieController.addActorToMovie);
 
-module.exports = router;
+export default router;

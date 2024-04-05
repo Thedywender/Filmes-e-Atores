@@ -29,4 +29,4 @@ app.put('/movies/:id', (req, res) => {
         res.status(404).json({ message: 'Filme não encontrado!' });
     }
 });
-module.exports = app;
+export default app;

@@ -5,4 +5,4 @@ const actorController = require('../controllers/actorController');
 
 // Adicione as rotas de CRUD aqui
 
-module.exports = router;
+export default router;
