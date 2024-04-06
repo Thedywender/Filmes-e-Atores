@@ -1,16 +1,16 @@
-export default {
-  up: async (queryInterface, Sequelize) => {
+module.exports = {
+  up: async (queryInterface) => {
     await queryInterface.bulkInsert('FilmesAtores', [
-      { FilmeId: 1, AtorId: 1, createdAt: new Date(), updatedAt: new Date() },
-      { FilmeId: 2, AtorId: 3, createdAt: new Date(), updatedAt: new Date() },
-      { FilmeId: 3, AtorId: 2, createdAt: new Date(), updatedAt: new Date() },
-      { FilmeId: 4, AtorId: 5, createdAt: new Date(), updatedAt: new Date() },
-      { FilmeId: 5, AtorId: 2, createdAt: new Date(), updatedAt: new Date() },
-      { FilmeId: 2, AtorId: 10, createdAt: new Date(), updatedAt: new Date() },
+      { filmeId: 1, atorId: 1, createdAt: new Date(), updatedAt: new Date() },
+      { filmeId: 2, atorId: 3, createdAt: new Date(), updatedAt: new Date() },
+      { filmeId: 3, atorId: 2, createdAt: new Date(), updatedAt: new Date() },
+      { filmeId: 4, atorId: 5, createdAt: new Date(), updatedAt: new Date() },
+      { filmeId: 5, atorId: 2, createdAt: new Date(), updatedAt: new Date() },
+      { filmeId: 2, atorId: 10, createdAt: new Date(), updatedAt: new Date() },
     ], {});
   },
 
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface) => {
     await queryInterface.bulkDelete('FilmesAtores', null, {});
   }
 };

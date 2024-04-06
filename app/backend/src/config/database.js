@@ -1,4 +1,5 @@
-export default {
+module.exports = {
+  development: {
     dialect: 'postgres',
     host: 'localhost',
     username: 'postgres',
@@ -8,4 +9,6 @@ export default {
       timestamps: true,
       underscored: true,
     },
-  };
+  },
+  // Adicione aqui as configurações para os ambientes de teste e produção
+};

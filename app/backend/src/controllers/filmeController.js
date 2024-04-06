@@ -1,9 +1,48 @@
-const movieService = require('../services/movieService');
+const { HttpRef } = require('../utils/httpstatus');
+const {
+  getAllMovies,
+  getMovieById,
+  createMovie,
+  updateMovie,
+  deleteMovie,
+  addActorToMovie,
+} = require('../services/filmeService');
 
-// Adicione os métodos de CRUD aqui
+const getAllMoviesController = async (req, res) => {
+  const { status, data } = await getAllMovies();
+  return res.status(HttpRef(status)).json(data);
+};
 
-exports.addActorToMovie = async (req, res) => {
-  const { movieId, actorId } = req.params;
-  await movieService.addActorToMovie(movieId, actorId);
-  res.status(200).json({ message: 'Ator adicionado ao filme com sucesso!' });
+const getMovieByIdController = async (req, res) => {
+  const { status, data } = await getMovieById(req.params.id);
+  return res.status(HttpRef(status)).json(data);
+};
+
+const createMovieController = async (req, res) => {
+  const { status, data } = await createMovie(req.body);
+  return res.status(HttpRef(status)).json(data);
+};
+
+const updateMovieController = async (req, res) => {
+  const { status, data } = await updateMovie(req.params.id, req.body);
+  res.status(HttpRef(status)).json(data);
+};
+
+const deleteMovieController = async (req, res) => {
+  const { status, data } = await deleteMovie(req.params.id);
+  return res.status(HttpRef(status)).json(data);
+};
+
+const addActorToMovieController = async (req, res) => {
+  const { status, data } = await addActorToMovie(req.params.filmeId, req.params.atorId);
+  return res.status(HttpRef(status)).json(data);
+};
+
+module.exports = {
+  getAllMoviesController,
+  getMovieByIdController,
+  createMovieController,
+  updateMovieController,
+  deleteMovieController,
+  addActorToMovieController,
 };

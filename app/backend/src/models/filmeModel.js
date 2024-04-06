@@ -1,19 +1,15 @@
-const { Model, DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 
-class Filmes extends Model {
-  static init(sequelize) {
-    super.init({
+module.exports = (sequelize) => {
+  const Filmes = sequelize.define('Filmes', {
       titulo: DataTypes.STRING,
-      lancamento: DataTypes.INTEGER,
+      ano_lancamento: DataTypes.INTEGER,
       disponivel: DataTypes.BOOLEAN,
-    }, {
-      sequelize,
     });
-  }
 
-  static associate(models) {
-    this.belongsToMany(models.Actor, { through: 'FilmesAtores', as: 'atores' });
-  }
-}
+  Filmes.associate = models => {
+    Filmes.belongsToMany(models.Actor, { through: 'FilmesAtores', as: 'atores' });
+  };
 
-module.exports = Filmes;
+  return Filmes
+};
