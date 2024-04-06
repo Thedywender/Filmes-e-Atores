@@ -5,10 +5,8 @@ services:
     build: ./backend
     ports:
       - 3001:3001
-    working_dir: /app-backend
-    command: dev 
     volumes: 
-      - ./backend/src:/app-backend/src
+      - ./backend/src:/app/src
     depends_on:
       - db
     environment:
