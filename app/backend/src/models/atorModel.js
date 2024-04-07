@@ -5,10 +5,12 @@ module.exports = (sequelize) => {
     nome: DataTypes.STRING,
     data_nascimento: DataTypes.DATE,
     nacionalidade: DataTypes.STRING,
+  }, {
+    tableName: 'atores'
   });
 
   Atores.associate = (models) => {
-    Atores.belongsToMany(models.Movie, { through: 'FilmesAtores', as: 'filmes' });
+    Atores.belongsToMany(models.Filmes, { through: 'FilmesAtores', as: 'filmes' });
   };
 
   return Atores;

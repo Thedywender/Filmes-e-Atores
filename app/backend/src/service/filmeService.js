@@ -2,12 +2,12 @@ const { Filmes, Atores } = require('../models');
 const { HttpRef } = require('../utils/httpstatus');
 
 const getAllMovies = async () => {
-  const filmes = await Filmes.findAll({ include: Atores});
+  const filmes = await Filmes.findAll({ include: { model: Atores, as: 'atores' }});
   return { status: HttpRef('SUCCESS'), data: filmes };
 };
 
 const getMovieById = async (id) => {
-  const filme = await Filmes.findByPk(id, { include: Atores });
+  const filme = await Filmes.findByPk(id, { include: { model: Atores, as: 'atores' } });
   return { status: HttpRef('SUCCESS'), data: filme };
 }
 

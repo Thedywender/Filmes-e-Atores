@@ -1,6 +1,9 @@
+'use strict';
+
+/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  up: async (queryInterface) => {
-    await queryInterface.bulkInsert('Atores', [
+  async up (queryInterface, Sequelize) {
+    await queryInterface.bulkInsert('atores', [
       { nome: 'Tom Hanks', data_nascimento: '1956-07-09', nacionalidade: 'Americano', createdAt: new Date(), updatedAt: new Date() },
       { nome: 'Morgan Freeman', data_nascimento: '1937-06-01', nacionalidade: 'Americano', createdAt: new Date(), updatedAt: new Date() },
       { nome: 'John Travolta', data_nascimento: '1924-04-03', nacionalidade: 'Americano', createdAt: new Date(), updatedAt: new Date() },
@@ -14,7 +17,7 @@ module.exports = {
     ], {});
   },
 
-  down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('Atores', null, {});
+  async down (queryInterface, Sequelize) {
+    await queryInterface.bulkDelete('atores', null, {});
   }
 };

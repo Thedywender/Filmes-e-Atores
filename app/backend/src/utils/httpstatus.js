@@ -12,4 +12,4 @@ const httpStatus = {
     
   const HttpRef = (status) => httpStatus[status] || 500;
     
-  export default { HttpRef, httpStatus };
+  module.exports = { HttpRef, httpStatus };

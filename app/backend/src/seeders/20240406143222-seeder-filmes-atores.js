@@ -1,5 +1,8 @@
+'use strict';
+
+/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  up: async (queryInterface) => {
+  async up (queryInterface, Sequelize) {
     await queryInterface.bulkInsert('FilmesAtores', [
       { filmeId: 1, atorId: 1, createdAt: new Date(), updatedAt: new Date() },
       { filmeId: 2, atorId: 3, createdAt: new Date(), updatedAt: new Date() },
@@ -10,7 +13,7 @@ module.exports = {
     ], {});
   },
 
-  down: async (queryInterface) => {
+  async down (queryInterface, Sequelize) {
     await queryInterface.bulkDelete('FilmesAtores', null, {});
   }
 };

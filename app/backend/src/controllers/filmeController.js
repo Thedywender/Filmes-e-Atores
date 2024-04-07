@@ -6,7 +6,7 @@ const {
   updateMovie,
   deleteMovie,
   addActorToMovie,
-} = require('../services/filmeService');
+} = require('../service/filmeService');
 
 const getAllMoviesController = async (req, res) => {
   const { status, data } = await getAllMovies();

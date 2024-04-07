@@ -1,10 +1,13 @@
+'use strict';
+
+/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+  async up (queryInterface, Sequelize) {
     await queryInterface.createTable('FilmesAtores', {
       filmeId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Filmes',
+          model: 'filmes',
           key: 'id'
         },
         allowNull: false
@@ -12,7 +15,7 @@ module.exports = {
       atorId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Atores',
+          model: 'atores',
           key: 'id'
         },
         allowNull: false
@@ -27,7 +30,8 @@ module.exports = {
       }
     });
   },
-  down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('FilmeAtores');
+
+  async down (queryInterface, Sequelize) {
+    await queryInterface.dropTable('FilmesAtores');
   }
 };
