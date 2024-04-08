@@ -1,4 +1,3 @@
-const { HttpRef } = require('../utils/httpstatus');
 const {
   getAllMovies,
   getMovieById,
@@ -10,7 +9,7 @@ const {
 
 const getAllMoviesController = async (_req, res) => {
   const { status, data } = await getAllMovies();
-  return res.status(HttpRef(status)).json(data);
+  return res.status(200).json(data);
 };
 
 // const getMovieByIdController = async (req, res) => {

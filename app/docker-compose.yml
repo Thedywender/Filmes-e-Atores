@@ -21,10 +21,11 @@ services:
       - db
     environment:
       - APP_PORT=3001
-      - DB_USER=root
+      - DB_USER=postgres
       - DB_PASS=123456
       - DB_HOST=db
       - DB_PORT=5432
+      - DB_NAME=app
     healthcheck:
       test: ["CMD", "lsof", "-t", "-i:3001"]
       timeout: 10s
@@ -36,11 +37,11 @@ services:
       - 5432:5432
     environment:
       - POSTGRES_PASSWORD=123456
-      - POSTGRES_USER=root
-      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=app
     restart: 'always'
     healthcheck:
-      test: ["CMD", "pg_isready", "-q", "-d", "postgres", "-U", "postgres"]
+      test: ["CMD", "pg_isready", "-q", "-d", "app", "-U", "postgres"]
       timeout: 10s
       retries: 5
     cap_add:

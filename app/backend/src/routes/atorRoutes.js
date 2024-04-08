@@ -1,8 +1,10 @@
 const express = require('express');
 
-const router = express.Router();
-const actorController = require('../controllers/actorController');
+const atoresRouter = express.Router();
+const atorController = require('../controllers/atorController');
+
+atoresRouter.get('/', atorController.getAllAtoresController);
 
 // Adicione as rotas de CRUD aqui
 
-export default router;
+module.exports = atoresRouter;

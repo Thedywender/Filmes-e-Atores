@@ -1,3 +1,13 @@
-const Actor = require('../models/actor');
+const { atores } = require('../models'); 
+const { HttpRef } = require('../utils/httpstatus');
 
-// Adicione os métodos de CRUD aqui
+const getAllAtores = async () => {
+  const ator = await atores.findAll({
+    attributes: ['id', 'nome', 'data_nascimento', 'nacionalidade']
+  });
+  return { status: HttpRef('SUCCESS'), data: ator };
+};
+
+module.exports = {
+  getAllAtores,
+};
