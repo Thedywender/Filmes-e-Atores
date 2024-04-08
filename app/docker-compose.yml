@@ -6,10 +6,8 @@ services:
     ports:
       - 3000:3000
     working_dir: /app-frontend
-    # Os `healthcheck` devem garantir que a aplicação
-    # está operacional, antes de liberar o container
     healthcheck:
-      test: ["CMD", "lsof", "-t", "-i:3000"]  # Caso utilize outra porta interna para o front, altere ela aqui também
+      test: ["CMD", "lsof", "-t", "-i:3000"]
       timeout: 10s
       retries: 5
   backend:
@@ -23,7 +21,7 @@ services:
       - db
     environment:
       - APP_PORT=3001
-      - DB_USER=postgres
+      - DB_USER=root
       - DB_PASS=123456
       - DB_HOST=db
       - DB_PORT=5432
@@ -38,7 +36,7 @@ services:
       - 5432:5432
     environment:
       - POSTGRES_PASSWORD=123456
-      - POSTGRES_USER=postgres
+      - POSTGRES_USER=root
       - POSTGRES_DB=postgres
     restart: 'always'
     healthcheck:
