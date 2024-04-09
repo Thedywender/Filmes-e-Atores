@@ -11,34 +11,33 @@ module.exports = (sequelize) => {
             }
         },
         atorId: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
+            type: DataTypes.INTEGER,
+            primaryKey: true,
             references: {
                 model: 'atores',
                 key: 'id',
             }
         },
     }, {
-        underscored: true,
-        tableName: 'filmes_atores',
+        tableName: 'FilmesAtores',
         timestamps: false,
     });
 
     FilmesAtores.associate = (models) => {
         models.atores.belongsToMany(models.filmes, {
-        through: FilmesAtores,
-        foreignKey: 'filmeId',
-        otherKey: 'atorId',
-        as: 'filme',
+            through: FilmesAtores,
+            foreignKey: 'atorId',
+            otherKey: 'filmeId',
+            as: 'filme',
         });
 
         models.filmes.belongsToMany(models.atores, {
-        through: FilmesAtores,
-        foreignKey: 'atorId',
-        otherKey: 'filmeId',
-        as: 'ator',
+            through: FilmesAtores,
+            foreignKey: 'filmeId',
+            otherKey: 'atorId',
+            as: 'ator',
         });
     }
     
     return FilmesAtores;
-    }
+}
