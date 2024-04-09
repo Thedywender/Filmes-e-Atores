@@ -7,9 +7,18 @@ module.exports = (sequelize) => {
       primaryKey: true,
       autoIncrement: true,
     },
-    nome: DataTypes.STRING,
-    data_nascimento: DataTypes.DATE,
-    nacionalidade: DataTypes.STRING,
+    nome: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    data_nascimento: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    nacionalidade: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   }, {
     tableName: 'atores',
     timestamps: false,

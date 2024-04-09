@@ -1,8 +1,17 @@
-const { getAllAtores, deleteAtor } = require('../service/atorService');
+const { getAllAtores, deleteAtor, createAtor } = require('../service/atorService');
 
 const getAllAtoresController = async (_req, res) => {
     const { status, data } = await getAllAtores();
-    return res.status(200).json(data);
+    return res.status(status).json(data);
+    };
+
+const createAtorController = async (req, res) => {
+    const { nome, data_nascimento, nacionalidade } = req.body;
+    if (!nome || !data_nascimento || !nacionalidade) {
+        return res.status(400).json({ message: 'Adicione: um nome, data de nascimento e nacionalidade!' });
+    }
+    const { status, data } = await createAtor({ nome, data_nascimento, nacionalidade });
+    return res.status(status).json(data);
     };
 
 
@@ -19,6 +28,7 @@ const deleteAtorController = async (req, res) => {
 
 module.exports = {
     getAllAtoresController,
+    createAtorController,
     deleteAtorController,
 };
 // Adicione os métodos de CRUD aqui

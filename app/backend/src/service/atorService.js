@@ -6,6 +6,12 @@ const getAllAtores = async () => {
   return { status: HttpRef('SUCCESS'), data: ator };
 };
 
+const createAtor = async (ator) => {
+  const { nome, data_nascimento, nacionalidade } = ator;
+  const newAtor = await atores.create({ nome, data_nascimento, nacionalidade });
+  return { status: 201, data: newAtor };
+}
+
 const deleteAtor = async (id) => {
   const ator = await atores.findByPk(id);
   if (!ator) {
@@ -17,5 +23,6 @@ const deleteAtor = async (id) => {
 
 module.exports = {
   getAllAtores,
+  createAtor,
   deleteAtor,
 };
