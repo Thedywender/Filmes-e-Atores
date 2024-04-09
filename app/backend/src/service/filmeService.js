@@ -13,7 +13,7 @@ const getAllMovies = async () => {
 
 const createMovie = async (filme) => {
   const { titulo, ano_lancamento, disponivel } = filme;
-  const newMovie = await filmes.create({ titulo, ano_lancamento, disponivel, createdAt, updatedAt });
+  const newMovie = await filmes.create({ titulo, ano_lancamento, disponivel });
   return { status: 201, data: newMovie };
 }
 

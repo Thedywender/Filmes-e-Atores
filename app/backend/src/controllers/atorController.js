@@ -1,4 +1,4 @@
-const { getAllAtores } = require('../service/atorService');
+const { getAllAtores, deleteAtor } = require('../service/atorService');
 
 const getAllAtoresController = async (_req, res) => {
     const { status, data } = await getAllAtores();
@@ -9,10 +9,10 @@ const getAllAtoresController = async (_req, res) => {
 const deleteAtorController = async (req, res) => {
     const { id } = req.params;
     try {
-        await atorService.deleteAtor(id);
+        await deleteAtor(id);
         res.status(200).json({ message: 'Ator deletado com sucesso' });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ message: 'Aqui deu erro!' });
         }
     };
 
