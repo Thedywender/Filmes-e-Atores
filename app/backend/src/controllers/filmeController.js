@@ -33,7 +33,7 @@ const createMovieController = async (req, res) => {
 
 const deleteMovieController = async (req, res) => {
   const { status, data } = await deleteMovie(req.params.id);
-  return res.status(HttpRef(status)).json(data);
+  return res.status(401).json(data);
 };
 
 // const addActorToMovieController = async (req, res) => {
