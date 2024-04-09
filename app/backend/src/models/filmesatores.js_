@@ -1,0 +1,34 @@
+const { DataTypes } = require('sequelize');
+
+module.exports = (sequelize) => {
+    const FilmesAtores = sequelize.define('FilmesAtores', {
+        filmeId: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        },
+        atorId: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        },
+    }, {
+        underscored: true,
+        tableName: 'filmes_atores',
+        timestamps: false,
+    });
+
+    FilmesAtores.associate = (models) => {
+        models.atores.belongsToMany(models.filmes, {
+        through: FilmesAtores,
+        foreignKey: 'atorId',
+        as: 'filmes',
+        });
+
+        models.filmes.belongsToMany(models.atores, {
+        through: FilmesAtores,
+        foreignKey: 'filmeId',
+        as: 'atores',
+        });
+    }
+    
+    return FilmesAtores;
+    }

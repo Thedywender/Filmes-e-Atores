@@ -2,9 +2,7 @@ const { filmes } = require('../models');
 const { HttpRef } = require('../utils/httpstatus');
 
 const getAllMovies = async () => {
-  const filme = await filmes.findAll({
-    attributes: ['id', 'titulo', 'ano_lancamento', 'disponivel']
-  });
+  const filme = await filmes.findAll();
   return { status: HttpRef('SUCCESS'), data: filme };
 };
 

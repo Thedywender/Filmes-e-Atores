@@ -14,9 +14,5 @@ module.exports = (sequelize) => {
     tableName: 'atores'
   });
 
-  // Atores.associate = (models) => {
-  //   Atores.belongsToMany(models.Filmes, { through: 'FilmesAtores', as: 'filmes' });
-  // };
-
   return Atores;
 };
