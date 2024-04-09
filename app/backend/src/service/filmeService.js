@@ -1,15 +1,10 @@
-const { filmes } = require('../models');
+const { filmes, atores } = require('../models');
 const { HttpRef } = require('../utils/httpstatus');
 
 const getAllMovies = async () => {
   const filme = await filmes.findAll();
   return { status: HttpRef('SUCCESS'), data: filme };
 };
-
-// const getMovieById = async (id) => {
-//   const filme = await Filmes.findByPk(id, { include: { model: Atores, as: 'atores' } });
-//   return { status: HttpRef('SUCCESS'), data: filme };
-// }
 
 const createMovie = async (filme) => {
   const { titulo, ano_lancamento, disponivel } = filme;
@@ -32,19 +27,20 @@ const deleteMovie = async (id) => {
   return { status: HttpRef('SUCCESS'), data: filme };
 }
 
-// const addActorToMovie = async (filmeId, atorId) => {
-//   const filme = await Filmes.findByPk(filmeId);
-//   const ator = await Atores.findByPk(atorId);
-//   await filme.addAtores(ator);
+const addActorToMovie = async (filmeId, atorId) => {
+  const filme = await filmes.findByPk(filmeId);
+  const ator = await atores.findByPk(atorId);
+  await filme.addAtores(ator);
 
-//   const updatedFilme = await Filmes.findByPk(filmeId, { include: Atores });
+  const updatedFilme = await filmes.findByPk(filmeId, { include: atores });
 
-//   return { status: HttpRef('SUCCESS'), data: updatedFilme };
-// };
+  return { status: HttpRef('SUCCESS'), data: updatedFilme };
+};
 
 module.exports = {
   getAllMovies,
   createMovie,
   updateMovie,
   deleteMovie,
+  addActorToMovie,
 };

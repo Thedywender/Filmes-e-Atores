@@ -25,5 +25,14 @@ module.exports = (sequelize) => {
     underscored: true,
   });
 
+  Atores.associate = (models) => {
+    Atores.belongsToMany(models.filmes, {
+      through: models.FilmesAtores,
+      foreignKey: 'atorId',
+      otherKey: 'filmeId',
+      as: 'filmes',
+    });
+  }
+
   return Atores;
 };

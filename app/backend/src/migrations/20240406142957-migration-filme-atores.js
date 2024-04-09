@@ -6,6 +6,7 @@ module.exports = {
     await queryInterface.createTable('FilmesAtores', {
       filmeId: {
         type: Sequelize.INTEGER,
+        primaryKey: true,
         references: {
           model: 'filmes',
           key: 'id'
@@ -20,14 +21,6 @@ module.exports = {
         },
         allowNull: false
       },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
     });
   },
 
