@@ -1,4 +1,9 @@
-const { getAllAtores, deleteAtor, createAtor } = require('../service/atorService');
+const { 
+    getAllAtores,
+    deleteAtor,
+    createAtor,
+    updateAtor,
+ } = require('../service/atorService');
 
 const getAllAtoresController = async (_req, res) => {
     const { status, data } = await getAllAtores();
@@ -12,6 +17,21 @@ const createAtorController = async (req, res) => {
     }
     const { status, data } = await createAtor({ nome, data_nascimento, nacionalidade });
     return res.status(status).json(data);
+    };
+
+const updateAtorController = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const { nome, data_nascimento, nacionalidade } = req.body;
+        if (!nome || !data_nascimento || !nacionalidade) {
+            return res.status(400).json({ message: 'Dados do ator incompletos' });
+        }
+        const atorData = { nome, data_nascimento, nacionalidade };
+        const result = await updateAtor(id, atorData);
+        res.status(result.status).json(result.data);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+        }
     };
 
 
@@ -30,5 +50,5 @@ module.exports = {
     getAllAtoresController,
     createAtorController,
     deleteAtorController,
+    updateAtorController,
 };
-// Adicione os métodos de CRUD aqui

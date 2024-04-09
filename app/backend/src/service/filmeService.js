@@ -17,10 +17,11 @@ const createMovie = async (filme) => {
   return { status: 201, data: newMovie };
 }
 
-// const updateMovie = async (id, filme) => {
-//   const updatedMovie = await Filmes.update(filme, { where: { id } });
-//   return { status: HttpRef('SUCCESS'), data: updatedMovie };
-// }
+const updateMovie = async (id, filmeData) => {
+  await filmes.update(filmeData, { where: { id } });
+  const updatedMovie = await filmes.findByPk(id);
+  return { status: HttpRef('SUCCESS'), data: updatedMovie };
+}
 
 const deleteMovie = async (id) => {
   const filme = await filmes.findByPk(id);
@@ -43,9 +44,7 @@ const deleteMovie = async (id) => {
 
 module.exports = {
   getAllMovies,
-//   getMovieById,
   createMovie,
-//   updateMovie,
+  updateMovie,
   deleteMovie,
-//   addActorToMovie,
 };

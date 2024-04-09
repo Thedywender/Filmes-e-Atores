@@ -12,6 +12,12 @@ const createAtor = async (ator) => {
   return { status: 201, data: newAtor };
 }
 
+const updateAtor = async (id, atorData) => {
+  await atores.update(atorData, { where: { id } });
+  const updatedAtor = await atores.findByPk(id);
+  return { status: HttpRef('SUCCESS'), data: updatedAtor };
+}
+
 const deleteAtor = async (id) => {
   const ator = await atores.findByPk(id);
   if (!ator) {
@@ -24,5 +30,6 @@ const deleteAtor = async (id) => {
 module.exports = {
   getAllAtores,
   createAtor,
+  updateAtor,
   deleteAtor,
 };

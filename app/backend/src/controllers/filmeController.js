@@ -1,10 +1,10 @@
 const {
   getAllMovies,
-  getMovieById,
+  // getMovieById,
   createMovie,
   updateMovie,
   deleteMovie,
-  addActorToMovie,
+  // addActorToMovie,
 } = require('../service/filmeService');
 
 const getAllMoviesController = async (_req, res) => {
@@ -26,10 +26,22 @@ const createMovieController = async (req, res) => {
   return res.status(status).json(data);
 };
 
-// const updateMovieController = async (req, res) => {
-//   const { status, data } = await updateMovie(req.params.id, req.body);
-//   res.status(HttpRef(status)).json(data);
-// };
+const updateMovieController = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { titulo, ano_lancamento, disponivel } = req.body;
+
+    if (!titulo || !ano_lancamento || disponivel === undefined) {
+      return res.status(400).json({ message: 'Dados do filme incompletos' });
+    }
+
+    const filmeData = { titulo, ano_lancamento, disponivel };
+    const result = await updateMovie(id, filmeData);
+    res.status(result.status).json(result.data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
 
 const deleteMovieController = async (req, res) => {
   const { status, data } = await deleteMovie(req.params.id);
@@ -45,7 +57,7 @@ module.exports = {
   getAllMoviesController,
   // getMovieByIdController,
   createMovieController,
-  // updateMovieController,
+  updateMovieController,
   deleteMovieController,
   // addActorToMovieController,
 };

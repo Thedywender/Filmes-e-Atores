@@ -6,7 +6,6 @@ const atorController = require('../controllers/atorController');
 atoresRouter.get('/', atorController.getAllAtoresController);
 atoresRouter.delete('/:id', atorController.deleteAtorController);
 atoresRouter.post('/', atorController.createAtorController);
-
-// Adicione as rotas de CRUD aqui
+atoresRouter.put('/:id', atorController.updateAtorController);
 
 module.exports = atoresRouter;
