@@ -7,11 +7,22 @@ module.exports = (sequelize) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      titulo: DataTypes.STRING,
-      ano_lancamento: DataTypes.INTEGER,
-      disponivel: DataTypes.BOOLEAN,
+      titulo: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      ano_lancamento: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      disponivel: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
     }, {
       tableName: 'filmes',
+      timestamps: false,
+      underscored: true,
     });
 
   return Filmes

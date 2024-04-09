@@ -11,7 +11,9 @@ module.exports = (sequelize) => {
     data_nascimento: DataTypes.DATE,
     nacionalidade: DataTypes.STRING,
   }, {
-    tableName: 'atores'
+    tableName: 'atores',
+    timestamps: false,
+    underscored: true,
   });
 
   return Atores;

@@ -11,20 +11,25 @@ const getAllMovies = async () => {
 //   return { status: HttpRef('SUCCESS'), data: filme };
 // }
 
-// const createMovie = async (filme) => {
-//   const newMovie = await Filmes.create(filme);
-//   return { status: HttpRef('CREATED'), data: newMovie };
-// }
+const createMovie = async (filme) => {
+  const { titulo, ano_lancamento, disponivel } = filme;
+  const newMovie = await filmes.create({ titulo, ano_lancamento, disponivel, createdAt, updatedAt });
+  return { status: 201, data: newMovie };
+}
 
 // const updateMovie = async (id, filme) => {
 //   const updatedMovie = await Filmes.update(filme, { where: { id } });
 //   return { status: HttpRef('SUCCESS'), data: updatedMovie };
 // }
 
-// const deleteMovie = async (id) => {
-//   const deletedMovie = await Filmes.destroy({ where: { id } });
-//   return { status: HttpRef('SUCCESS'), data: deletedMovie };
-// }
+const deleteMovie = async (id) => {
+  const filme = await filmes.findByPk(id);
+  if (!filme) {
+    throw new Error('Filme não encontrado');
+  }
+  await filmes.destroy({ where: { id } });
+  return { status: HttpRef('SUCCESS'), data: filme };
+}
 
 // const addActorToMovie = async (filmeId, atorId) => {
 //   const filme = await Filmes.findByPk(filmeId);
@@ -39,8 +44,8 @@ const getAllMovies = async () => {
 module.exports = {
   getAllMovies,
 //   getMovieById,
-//   createMovie,
+  createMovie,
 //   updateMovie,
-//   deleteMovie,
+  deleteMovie,
 //   addActorToMovie,
 };
