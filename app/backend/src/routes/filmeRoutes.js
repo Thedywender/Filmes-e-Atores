@@ -9,7 +9,10 @@ filmesRouter.get('/', async (_req, res) => {
   const addfilmes = await filmes.findAll(
     { 
       include: [
-        { model: atores, as: 'atores', through: { attributes: [] } },
+        { model: atores, as: 'atores', 
+        through: { attributes: [] },
+        attributes: { exclude: ['id'] }
+      },
       ],
     },
   );
