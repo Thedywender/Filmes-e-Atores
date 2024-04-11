@@ -53,30 +53,40 @@ function Atores() {
             </div>
             <button onClick={handleCreateAtor}>Clique aqui e crie seus Atores</button>
             <h1>Lista de Atores</h1>
-            {atores.map(ator => (
-                <div key={ator.id} className='ator'>
-                    {editingAtor && editingAtor.id === ator.id ? (
-                        <>
-                            <input value={editingAtor.nome} onChange={(e) => setEditingAtor({...editingAtor, nome: e.target.value})} />
-                            <input 
-                                type="date" 
-                                value={new Date(editingAtor.data_nascimento).toISOString().split('T')[0]} 
-                                onChange={(e) => setEditingAtor({...editingAtor, data_nascimento: e.target.value})}
-                            />
-                            <input value={editingAtor.nacionalidade} onChange={(e) => setEditingAtor({...editingAtor, nacionalidade: e.target.value})} />
-                            <button onClick={handleUpdateAtor}>Atualizar</button>
-                        </>
-                    ) : (
-                        <>
-                            <h2>{ator.nome}</h2>
-                            <p>Data de nascimento: {new Date(ator.data_nascimento).toLocaleDateString('pt-BR')}</p>
-                            <p>Nacionalidade: {ator.nacionalidade}</p>
-                            <button onClick={() => handleEditAtor(ator)}>Editar</button>
-                            <button onClick={() => removeAtor(ator)}>Deletar</button>
-                        </>
-                    )}
+            <div className='atores-container'>
+    {atores.map(ator => (
+        <div key={ator.id} className='ator'>
+            {editingAtor && editingAtor.id === ator.id ? (
+                <form onSubmit={(e) => {
+                    e.preventDefault();
+                    if (editingAtor) {
+                        handleUpdateAtor();
+                        setEditingAtor(null);
+                    }
+                }}>
+                    <input value={editingAtor.nome} onChange={(e) => setEditingAtor({...editingAtor, nome: e.target.value})} />
+                    <input 
+                        type="date" 
+                        value={new Date(editingAtor.data_nascimento).toISOString().split('T')[0]} 
+                        onChange={(e) => setEditingAtor({...editingAtor, data_nascimento: e.target.value})}
+                    />
+                    <input value={editingAtor.nacionalidade} onChange={(e) => setEditingAtor({...editingAtor, nacionalidade: e.target.value})} />
+                    <button type="submit">Atualizar</button>
+                </form>
+            ) : (
+                <div>
+                    <h2>{ator.nome}</h2>
+                    <p>Data de nascimento: {new Date(ator.data_nascimento).toLocaleDateString('pt-BR')}</p>
+                    <p>Nacionalidade: {ator.nacionalidade}</p>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <button onClick={() => handleEditAtor(ator)}>Editar</button>
+                        <button onClick={() => removeAtor(ator)}>Deletar</button>
+                    </div>
                 </div>
-            ))}
+            )}
+        </div>
+    ))}
+</div>
         </>
     )
 }
