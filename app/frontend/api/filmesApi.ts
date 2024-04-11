@@ -7,9 +7,9 @@ export type Ator = {
 };
 
 export type Filme = {
-    id: string,
+    id: number,
     titulo: string,
-    ano_lancamento: string,
+    ano_lancamento: number,
     disponivel: boolean,
     atores: Ator[]
 };

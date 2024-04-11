@@ -2,6 +2,7 @@ import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Context from '../context/Context';
 import { Filme } from '../../api/filmesApi';
+import '../App.css';
 
 function CreateFilmes() {
     const { addFilme } = useContext(Context);
@@ -24,7 +25,7 @@ function CreateFilmes() {
         }
         const newFilme: Omit<Filme, 'id' |'atores'> = {
             titulo: filmeNome,
-            ano_lancamento: dataFilme,
+            ano_lancamento: Number(dataFilme),
             disponivel: disponivel,
         };
         try {

@@ -55,6 +55,7 @@ function Provider({ children }: ProviderProps) {
     const editFilme = async (filmeData: Filme) => {
         try {
             const updatedFilme = await putFilme(filmeData);
+            console.log(filmes)
             setFilmes(filmes.map(filme => filme.id === updatedFilme.id ? updatedFilme : filme));
         } catch (error: unknown) {
             if (error instanceof Error) {

@@ -1,9 +1,9 @@
 const URL = 'http://localhost:3001';
 
 export type Ator = {
-    id: string,
+    id: number,
     nome: string,
-    data_nascimento: Date,
+    data_nascimento: string,
     nacionalidade: string
 };
 
