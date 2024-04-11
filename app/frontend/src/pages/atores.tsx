@@ -1,30 +1,19 @@
-import { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import play from "../assets/play.jpeg"
 import Context from '../context/Context';
-import { Ator } from '../../api/atoresApi';
 
 function Atores() {
-    const { atores, getAtores, addAtor, editAtor, removeAtor } = useContext(Context);
-    const [atorNome, setAtorNome] = useState('');
-    const [atorData, setAtorData] = useState('');
-    const [nacionalidade, setNacionalidade] = useState('');
+    const { atores, getAtores, removeAtor } = useContext(Context);
+    const navigate = useNavigate();
 
     useEffect(() => {
         getAtores();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const handleAddAtor = async (event: React.FormEvent) => {
-        event.preventDefault();
-        const newAtor: Omit<Ator, 'id'> = {
-            nome: atorNome,
-            data_nascimento: new Date(atorData),
-            nacionalidade: nacionalidade,
-        };
-        await addAtor(newAtor);
-        setAtorNome('');
-        setAtorData('');
-        setNacionalidade('');
+    const handleCreateAtor = () => {
+        navigate('/atores/createAtores');
     };
 
     return (
@@ -39,17 +28,14 @@ function Atores() {
                     <p>Início</p>
                 </Link>
             </div>
-            <form onSubmit={handleAddAtor}>
-                <p>Adicione um ator</p>
-                <input type="text" name="ator" id="ator" placeholder="digite o nome do ator" value={atorNome} onChange={(e) => setAtorNome(e.target.value)} />
-                <button type="submit">ADICIONE</button>
-            </form>
+            <button onClick={handleCreateAtor}>Crie Atores</button>
             <h1>Lista de Atores</h1>
             {atores.map(ator => (
                 <div key={ator.id}>
                     <h2>{ator.nome}</h2>
+                    <p>Data de nascimento: {new Date(ator.data_nascimento).toLocaleDateString('pt-BR')}</p>
+                    <p>Nacionalidade: {ator.nacionalidade}</p>
                     <button onClick={() => removeAtor(ator)}>Deletar</button>
-                    <button onClick={() => editAtor(ator)}>Editar</button>
                 </div>
             ))}
         </>

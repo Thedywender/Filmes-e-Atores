@@ -10,9 +10,10 @@ type ProviderProps = {
 export type ProviderValues = {
     filmes: Filme[],
     getFilmes: () => Promise<void>,
-    addFilme: (filmeData: Omit<Filme, 'id'>) => Promise<void>,
+    addFilme: (filmeData: Omit<Filme, 'id' |'atores'>) => Promise<void>, 
     editFilme: (filmeData: Filme) => Promise<void>,
     removeFilme: (filmeData: Filme) => Promise<void>,
+    addAtorToFilme: (filmeId: string, atorData: Omit<Ator, 'id'>) => Promise<void>,
     atores: Ator[],
     getAtores: () => Promise<void>,
     addAtor: (atorData: Omit<Ator, 'id'>) => Promise<void>,
@@ -41,10 +42,9 @@ function Provider({ children }: ProviderProps) {
         }
     }
 
-    const addFilme = async (filmeData: Omit<Filme, 'id'>) => {
+    const addFilme = async (filmeData: Omit<Filme, 'id' |'atores'>) => {
         try {
-            const newFilme = await postFilme(filmeData);
-            setFilmes([...filmes, newFilme]);
+            await postFilme(filmeData);
         } catch (error: unknown) {
             if (error instanceof Error) {
                 console.log(error.message);
@@ -74,6 +74,17 @@ function Provider({ children }: ProviderProps) {
         }
     }
 
+    const addAtorToFilme = async (filmeId: string, atorData: Omit<Ator, 'id'>) => {
+        try {
+            await addAtorToFilme(filmeId, atorData);
+            getFilmes();
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                console.log(error.message);
+            }
+        }
+    }
+
     const getAtores = async () => {
         setLoading(true);
         try {
@@ -90,8 +101,7 @@ function Provider({ children }: ProviderProps) {
 
     const addAtor = async (atorData: Omit<Ator, 'id'>) => {
         try {
-            const newAtor = await postAtor(atorData);
-            setAtores([...atores, newAtor]);
+            await postAtor(atorData);
         } catch (error: unknown) {
             if (error instanceof Error) {
                 console.log(error.message);
@@ -127,6 +137,7 @@ function Provider({ children }: ProviderProps) {
         addFilme,
         editFilme,
         removeFilme,
+        addAtorToFilme,
         atores,
         getAtores,
         addAtor,

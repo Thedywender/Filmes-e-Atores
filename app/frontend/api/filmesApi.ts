@@ -14,7 +14,6 @@ export type Filme = {
     atores: Ator[]
 };
 
-export type NovoFilme = Omit<Filme, 'id'>;
 
 export async function fetchFilmes(): Promise<Filme[]> {
     try {
@@ -29,11 +28,15 @@ export async function fetchFilmes(): Promise<Filme[]> {
     }
 }
 
-export async function postFilme(filme: NovoFilme) {
+export async function postFilme(filme: Omit<Filme, 'id' |'atores'>) {
+    // type Filmedd = Omit<Filme, 'Atores' | 'id'>;
+    // const filmeAdd: Filmedd = filme;
+    // delete filmeAdd.atores;
+    console.log(JSON.stringify(filme))
     const response = await fetch(`${URL}/filmes`, {
         method: 'POST',
         headers: {
-            Accept: 'application/json',
+            'Accept': 'application/json',
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(filme),
@@ -65,13 +68,14 @@ export async function deleteFilme(filme: Filme) {
     return response.json();
 }
 
-export async function addAtorToFilme(filmeId: string, atorId: string) {
-    const response = await fetch(`${URL}/filmes/${filmeId}/atores/${atorId}`, {
+export async function addAtorToFilme(filmeId: string, ator: { nome: string, data_nascimento: string, nacionalidade: string }) {
+    const response = await fetch(`${URL}/filmes/${filmeId}/atores`, {
         method: 'POST',
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
         },
+        body: JSON.stringify(ator)
     });
     return response.json();
 }

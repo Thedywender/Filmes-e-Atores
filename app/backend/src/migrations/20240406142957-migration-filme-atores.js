@@ -11,7 +11,9 @@ module.exports = {
           model: 'filmes',
           key: 'id'
         },
-        allowNull: false
+        allowNull: false,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       atorId: {
         type: Sequelize.INTEGER,
@@ -19,8 +21,11 @@ module.exports = {
           model: 'atores',
           key: 'id'
         },
-        allowNull: false
+        allowNull: false,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
+
     });
   },
 

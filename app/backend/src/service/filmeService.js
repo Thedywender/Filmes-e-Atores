@@ -1,4 +1,4 @@
-const { filmes, atores } = require('../models');
+const { filmes, atores, FilmesAtores } = require('../models');
 const { HttpRef } = require('../utils/httpstatus');
 
 const getAllMovies = async () => {
@@ -27,10 +27,14 @@ const deleteMovie = async (id) => {
   return { status: HttpRef('SUCCESS'), data: filme };
 }
 
-const addActorToMovie = async (filmeId, atorId) => {
+const addActorToMovie = async (filmeId, atorData) => {
   const filme = await filmes.findByPk(filmeId);
-  const ator = await atores.findByPk(atorId);
-  await filme.addAtores(ator);
+  if (!filme) {
+    return {status: HttpRef('NOT_FOUND'), data: {message: 'Filme não encontrado'}};
+  }
+
+  const ator = await atores.create(atorData);
+  await FilmesAtores.create({ filmeId, atorId: ator.id });
 
   const updatedFilme = await filmes.findByPk(filmeId, { include: atores });
 

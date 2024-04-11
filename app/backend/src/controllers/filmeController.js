@@ -17,7 +17,7 @@ const createMovieController = async (req, res) => {
     return res.status(400).json({ message: 'Adicione: um titulo, ano de lançamento e se está disponivel!' });
   }
   const { status, data } = await createMovie({ titulo, ano_lancamento, disponivel });
-  return res.status(status).json(data);
+  return res.status(200).json(data);
 };
 
 const updateMovieController = async (req, res) => {
@@ -39,15 +39,20 @@ const updateMovieController = async (req, res) => {
 
 const deleteMovieController = async (req, res) => {
   const { status, data } = await deleteMovie(req.params.id);
-  return res.status(401).json(data);
+  return res.status(202).json(data);
 };
 
 const addActorToMovieController = async (req, res) => {
   try {
     const filmeId = req.params.filmeId;
-    const atorId = req.params.atorId;
+    const { nome, data_nascimento, nacionalidade } = req.body;
 
-    const result = await addActorToMovie(filmeId, atorId);
+    if (!nome || !data_nascimento || !nacionalidade) {
+      return res.status(400).json({ message: 'Os campos nome, data_nascimento e nacionalidade são obrigatórios' });
+    }
+
+    const atorData = { nome, data_nascimento, nacionalidade };
+    const result = await addActorToMovie(filmeId, atorData);
 
     res.status(result.status).json(result.data);
   } catch (error) {

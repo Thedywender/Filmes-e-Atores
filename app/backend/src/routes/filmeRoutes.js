@@ -22,6 +22,6 @@ filmesRouter.get('/', async (_req, res) => {
 filmesRouter.post('/', filmeController.createMovieController);
 filmesRouter.put('/:id', filmeController.updateMovieController);
 filmesRouter.delete('/:id', filmeController.deleteMovieController);
-filmesRouter.post('/:filmeId/atores/:atorId', filmeController.addActorToMovieController);
+filmesRouter.post('/:filmeId/atores', filmeController.addActorToMovieController);
 
 module.exports = filmesRouter;

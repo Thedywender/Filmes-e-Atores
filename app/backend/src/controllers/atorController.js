@@ -41,7 +41,7 @@ const deleteAtorController = async (req, res) => {
         await deleteAtor(id);
         res.status(200).json({ message: 'Ator deletado com sucesso' });
     } catch (error) {
-        res.status(500).json({ message: 'Aqui deu erro!' });
+        res.status(500).json({ message: error });
         }
     };
 

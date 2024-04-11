@@ -1,29 +1,20 @@
-import { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import play from "../assets/play.jpeg"
 import Context from '../context/Context';
-import { Filme } from '../../api/filmesApi';
+import '../App.css'
 
 function Filmes() {
-    const { filmes, getFilmes, addFilme, editFilme, removeFilme } = useContext(Context);
-    const [filmeNome, setFilmeNome] = useState('');
-    const [dataFilme, setdataFilme] = useState('');
+    const { filmes, getFilmes, removeFilme } = useContext(Context);
+    const navigate = useNavigate();
 
     useEffect(() => {
         getFilmes();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const handleAddFilme = async (event: React.FormEvent) => {
-        event.preventDefault();
-        const newFilme: Omit<Filme, 'id'> = {
-            titulo: filmeNome,
-            ano_lancamento: dataFilme,
-            disponivel: true,
-            atores: []
-        };
-        await addFilme(newFilme);
-        setFilmeNome('');
-        setdataFilme('');
+    const handleCreateFilme = () => {
+        navigate('/filmes/createFilms');
     };
 
     return (
@@ -38,17 +29,18 @@ function Filmes() {
                     <p>Início</p>
                 </Link>
             </div>
-            <form onSubmit={handleAddFilme}>
-                <p>Adicione um filme</p>
-                <input type="text" name="filme" id="filme" placeholder="digite o nome do filme" value={filmeNome} onChange={(e) => setFilmeNome(e.target.value)} />
-                <button type="submit">ADICIONE</button>
-            </form>
+            <button onClick={handleCreateFilme}>Crie Filmes</button>
             <h1>Lista de Filmes</h1>
+            {console.log(filmes)}
             {filmes.map(filme => (
                 <div key={filme.id}>
                     <h2>{filme.titulo}</h2>
+                    <p>Ano de lançamento: {filme.ano_lancamento}</p>
+                    <p className={filme.disponivel ? 'disponivel' : 'indisponivel'}>
+                        Disponível: {filme.disponivel ? 'Yes' : 'No'}
+                    </p>
+                    <p>Atores: {filme.atores.map(ator => ator.nome).join(', ')}</p>
                     <button onClick={() => removeFilme(filme)}>Deletar</button>
-                    <button onClick={() => editFilme(filme)}>Editar</button>
                 </div>
             ))}
         </>
