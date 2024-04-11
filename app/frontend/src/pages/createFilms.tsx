@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Context from '../context/Context';
 import { Filme } from '../../api/filmesApi';
 import '../App.css';
+import Header from '../components/Header';
 
 function CreateFilmes() {
     const { addFilme } = useContext(Context);
@@ -42,17 +43,22 @@ function CreateFilmes() {
     };
 
     return (
-        <form onSubmit={handleAddFilme}>
-            <p>Adicione um filme</p>
-            <input type="text" name="filme" id="filme" placeholder="digite o nome do filme" value={filmeNome} onChange={(e) => setFilmeNome(e.target.value)} />
-            <input type="text" name="ano_lancamento" id="ano_lancamento" placeholder="digite o ano de lançamento" value={dataFilme} onChange={(e) => setDataFilme(e.target.value)} />
-            <label>
-                <input type="checkbox" name="disponivel" id="disponivel" checked={disponivel} onChange={(e) => setDisponivel(e.target.checked)} />
-                Disponível
-            </label>
-            <button type="submit">Criar Filme</button>
-            {erro && <p>{erro}</p>}
-        </form>
+        <>
+        <Header/>
+            <div className="main-content-create">
+                <form onSubmit={handleAddFilme} className="form-container">
+                    <p>Adicione um filme</p>
+                    <input type="text" name="filme" id="filme" placeholder="digite o nome do filme" value={filmeNome} onChange={(e) => setFilmeNome(e.target.value)} className='input-padrao-create'/>
+                    <input type="text" name="ano_lancamento" id="ano_lancamento" placeholder="digite o ano de lançamento" value={dataFilme} onChange={(e) => setDataFilme(e.target.value)} className='input-padrao-create'/>
+                    <label>
+                        <input type="checkbox" name="disponivel" id="disponivel" checked={disponivel} onChange={(e) => setDisponivel(e.target.checked)} />
+                        Disponível
+                    </label>
+                    <button type="submit" className='button-create-finish'>Criar Filme</button>
+                    {erro && <p>{erro}</p>}
+                </form>
+            </div>
+        </>
     )
 }
 

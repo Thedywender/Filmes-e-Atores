@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import play from "../assets/play.jpeg"
+import { useNavigate } from 'react-router-dom';
+// import play from "../assets/play.jpeg"
 import Context from '../context/Context';
 import { Filme } from '../../api/filmesApi';
 import '../App.css'
+import Header from '../components/Header';
 
 
 function Filmes() {
@@ -27,17 +28,9 @@ function Filmes() {
 
     return (
         <>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Link to="/atores">
-                    <img src={play} style={{width: '100px', height: '100px'}}/>
-                    <p>Atores</p>
-                </Link>
-                <Link to="/inicio">
-                    <img src={play} style={{ width: '100px', height: '100px' }} />
-                    <p>Início</p>
-                </Link>
-            </div>
-            <button onClick={handleCreateFilme}>Clique aqui e crie seus Filmes</button>
+            <Header/>
+            <div className="main-content-filmes">
+            <button onClick={handleCreateFilme} className='button-create'>Clique aqui e crie seus Filmes</button>
             <h1>Lista de Filmes</h1>
             <div className='filmes-container'>
                 {filmes.map(filme => (
@@ -84,14 +77,15 @@ function Filmes() {
                                     Disponível: {filme.disponivel ? 'Yes' : 'No'}
                                 </p>
                                 <p>Atores: {filme.atores?.map(ator => ator.nome).join(', ')}</p>
-                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                    <button onClick={() => handleEditFilme(filme)}>Editar</button>
-                                    <button onClick={() => removeFilme(filme)}>Deletar</button>
+                                <div className="button-group">
+                                    <button onClick={() => handleEditFilme(filme)} className='button-create-init'>Editar</button>
+                                    <button onClick={() => removeFilme(filme)} className='button-create-init'>Deletar</button>
                                 </div>
                             </>
                         )}
                     </div>
                 ))}
+            </div>
             </div>
         </>
     )

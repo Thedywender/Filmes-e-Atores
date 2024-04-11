@@ -1,8 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import play from "../assets/play.jpeg"
+import { useNavigate } from 'react-router-dom';
+// import play from "../assets/play.jpeg"
 import Context from '../context/Context';
 import '../App.css';
+import Header from '../components/Header';
 // import { Ator } from '../../api/filmesApi';
 
 type Ator = {
@@ -41,17 +42,9 @@ function Atores() {
 
     return (
         <>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }} className='atores'>
-                <Link to="/filmes">
-                    <img src={play} style={{ width: '100px', height: '100px' }} />
-                    <p>Filmes</p>
-                </Link>
-                <Link to="/inicio">
-                    <img src={play} style={{ width: '100px', height: '100px' }} />
-                    <p>Início</p>
-                </Link>
-            </div>
-            <button onClick={handleCreateAtor}>Clique aqui e crie seus Atores</button>
+            <Header/>
+            <div className="main-content-atores">
+            <button onClick={handleCreateAtor} className='button-create'>Clique aqui e crie seus Atores</button>
             <h1>Lista de Atores</h1>
             <div className='atores-container'>
     {atores.map(ator => (
@@ -78,14 +71,15 @@ function Atores() {
                     <h2>{ator.nome}</h2>
                     <p>Data de nascimento: {new Date(ator.data_nascimento).toLocaleDateString('pt-BR')}</p>
                     <p>Nacionalidade: {ator.nacionalidade}</p>
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <button onClick={() => handleEditAtor(ator)}>Editar</button>
-                        <button onClick={() => removeAtor(ator)}>Deletar</button>
+                    <div className="button-group">
+                        <button onClick={() => handleEditAtor(ator)} className='button-create-init'>Editar</button>
+                        <button onClick={() => removeAtor(ator)} className='button-create-init '>Deletar</button>
                     </div>
                 </div>
             )}
         </div>
     ))}
+</div>
 </div>
         </>
     )
