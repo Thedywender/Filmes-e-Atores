@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import play from "../assets/play.jpeg"
 import Context from '../context/Context';
 import { Filme } from '../../api/filmesApi';
 import '../App.css'
@@ -18,11 +17,11 @@ function Filmes() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const handleCreateFilme = () => {
+    const createFilme = () => {
         navigate('/filmes/createFilms');
     };
 
-    const handleEditFilme = (filme: Filme) => {
+    const setEditFilme = (filme: Filme) => {
         setEditingFilmeState(filme);
     };
 
@@ -30,7 +29,7 @@ function Filmes() {
         <>
             <Header/>
             <div className="main-content-filmes">
-            <button onClick={handleCreateFilme} className='button-create'>Clique aqui e crie seus Filmes</button>
+            <button onClick={createFilme} className='button-create'>Clique aqui e crie seus Filmes</button>
             <h1>Lista de Filmes</h1>
             <div className='filmes-container'>
                 {filmes.map(filme => (
@@ -78,7 +77,7 @@ function Filmes() {
                                 </p>
                                 <p>Atores: {filme.atores?.map(ator => ator.nome).join(', ')}</p>
                                 <div className="button-group">
-                                    <button onClick={() => handleEditFilme(filme)} className='button-create-init'>Editar</button>
+                                    <button onClick={() => setEditFilme(filme)} className='button-create-init'>Editar</button>
                                     <button onClick={() => removeFilme(filme)} className='button-create-init'>Deletar</button>
                                 </div>
                             </>

@@ -1,10 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import play from "../assets/play.jpeg"
 import Context from '../context/Context';
 import '../App.css';
 import Header from '../components/Header';
-// import { Ator } from '../../api/filmesApi';
 
 type Ator = {
     id: number;
@@ -24,15 +22,15 @@ function Atores() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const handleCreateAtor = () => {
+    const createAtor = () => {
         navigate('/atores/createAtores');
     };
 
-    const handleEditAtor = (ator: Ator) => {
+    const setEditAtor = (ator: Ator) => {
         setEditingAtor(ator);
     };
 
-    const handleUpdateAtor = () => {
+    const updateAtor = () => {
         if (editingAtor) {
             editAtor(editingAtor);
             setEditingAtor(null);
@@ -44,7 +42,7 @@ function Atores() {
         <>
             <Header/>
             <div className="main-content-atores">
-            <button onClick={handleCreateAtor} className='button-create'>Clique aqui e crie seus Atores</button>
+            <button onClick={createAtor} className='button-create'>Clique aqui e crie seus Atores</button>
             <h1>Lista de Atores</h1>
             <div className='atores-container'>
     {atores.map(ator => (
@@ -53,7 +51,7 @@ function Atores() {
                 <form onSubmit={(e) => {
                     e.preventDefault();
                     if (editingAtor) {
-                        handleUpdateAtor();
+                        updateAtor();
                         setEditingAtor(null);
                     }
                 }}>
@@ -72,7 +70,7 @@ function Atores() {
                     <p>Data de nascimento: {new Date(ator.data_nascimento).toLocaleDateString('pt-BR')}</p>
                     <p>Nacionalidade: {ator.nacionalidade}</p>
                     <div className="button-group">
-                        <button onClick={() => handleEditAtor(ator)} className='button-create-init'>Editar</button>
+                        <button onClick={() => setEditAtor(ator)} className='button-create-init'>Editar</button>
                         <button onClick={() => removeAtor(ator)} className='button-create-init '>Deletar</button>
                     </div>
                 </div>

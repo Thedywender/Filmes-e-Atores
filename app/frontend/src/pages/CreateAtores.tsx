@@ -12,7 +12,7 @@ function CreateAtores() {
     const [erro, setErro] = useState('');
     const navigate = useNavigate();
 
-    const handleAddAtor = async (event: React.FormEvent) => {
+    const setAddAtor = async (event: React.FormEvent) => {
         event.preventDefault();
         if (atorNome.length < 3) {
             setErro('O nome do ator deve ter pelo menos 3 caracteres');
@@ -45,7 +45,7 @@ function CreateAtores() {
         <>
         <Header/>
             <div className="main-content-create">
-                <form onSubmit={handleAddAtor} className="form-container">
+                <form onSubmit={setAddAtor} className="form-container">
                     <p>Adicione um ator</p>
                     <input type="text" name="ator" id="ator" placeholder="digite o nome do ator" value={atorNome} onChange={(e) => setAtorNome(e.target.value)} className='input-padrao-create'/>
                     <input type="text" name="data_nascimento" id="data_nascimento" placeholder="digite a data de nascimento" value={dataNascimento} onChange={(e) => setDataNascimento(e.target.value)} className='input-padrao-create'/>

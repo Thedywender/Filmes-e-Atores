@@ -13,7 +13,7 @@ function CreateFilmes() {
     const [erro, setErro] = useState('');
     const navigate = useNavigate();
 
-    const handleAddFilme = async (event: React.FormEvent) => {
+    const setAddFilme = async (event: React.FormEvent) => {
         event.preventDefault();
         if (filmeNome.length < 3) {
             setErro('O título do filme deve ter pelo menos 3 caracteres');
@@ -46,7 +46,7 @@ function CreateFilmes() {
         <>
         <Header/>
             <div className="main-content-create">
-                <form onSubmit={handleAddFilme} className="form-container">
+                <form onSubmit={setAddFilme} className="form-container">
                     <p>Adicione um filme</p>
                     <input type="text" name="filme" id="filme" placeholder="digite o nome do filme" value={filmeNome} onChange={(e) => setFilmeNome(e.target.value)} className='input-padrao-create'/>
                     <input type="text" name="ano_lancamento" id="ano_lancamento" placeholder="digite o ano de lançamento" value={dataFilme} onChange={(e) => setDataFilme(e.target.value)} className='input-padrao-create'/>
