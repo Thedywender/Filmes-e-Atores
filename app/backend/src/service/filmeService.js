@@ -36,7 +36,7 @@ const addActorToMovie = async (filmeId, atorData) => {
   const ator = await atores.create(atorData);
   await FilmesAtores.create({ filmeId, atorId: ator.id });
 
-  const updatedFilme = await filmes.findByPk(filmeId, { include: atores });
+  const updatedFilme = await filmes.findByPk(filmeId, {include: [{model: atores, as : 'atores'}]});
 
   return { status: HttpRef('SUCCESS'), data: updatedFilme };
 };

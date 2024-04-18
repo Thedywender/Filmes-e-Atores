@@ -28,14 +28,14 @@ module.exports = (sequelize) => {
             through: FilmesAtores,
             foreignKey: 'atorId',
             otherKey: 'filmeId',
-            as: 'filme',
+            as: 'filmes',
         });
 
         models.filmes.belongsToMany(models.atores, {
             through: FilmesAtores,
             foreignKey: 'filmeId',
             otherKey: 'atorId',
-            as: 'ator',
+            as: 'atores',
         });
     }
     

@@ -17,6 +17,7 @@ module.exports = {
       },
       atorId: {
         type: Sequelize.INTEGER,
+        primaryKey: true,
         references: {
           model: 'atores',
           key: 'id'

@@ -24,16 +24,13 @@ module.exports = (sequelize) => {
       tableName: 'filmes',
       timestamps: false,
       underscored: true,
+      indexes: [
+        {
+          unique: true,
+          fields: ['titulo', 'ano_lancamento']
+        }
+      ]
     });
-
-    Filmes.associate = (models) => {
-      Filmes.belongsToMany(models.atores, {
-        through: models.FilmesAtores,
-        foreignKey: 'filmeId',
-        otherKey: 'atorId',
-        as: 'atores',
-      });
-    }
 
   return Filmes
 };

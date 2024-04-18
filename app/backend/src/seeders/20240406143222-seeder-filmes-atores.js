@@ -9,6 +9,8 @@ module.exports = {
       { filmeId: 3, atorId: 2 },
       { filmeId: 4, atorId: 5 },
       { filmeId: 5, atorId: 2 },
+      { filmeId: 5, atorId: 1 },
+      { filmeId: 5, atorId: 3 },
     ], {});
   },
 
