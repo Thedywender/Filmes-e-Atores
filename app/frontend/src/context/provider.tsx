@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Context from "./Context";
-import { Filme, fetchFilmes, postFilme, putFilme, deleteFilme } from "../../api/filmesApi";
-import { Ator, fetchAtores, postAtor, putAtor, deleteAtor } from "../../api/atoresApi";
+import { Filme, fetchFilmes, postFilme, putFilme, deleteFilme, addAtorToFilme } from "../../api/filmesApi";
+import { Ator, fetchAtores, postAtor, putAtor, deleteAtor, addFilmeToAtor } from "../../api/atoresApi";
 
 type ProviderProps = {
     children: React.ReactNode
@@ -13,13 +13,14 @@ export type ProviderValues = {
     addFilme: (filmeData: Omit<Filme, 'id' |'atores'>) => Promise<void>, 
     editFilme: (filmeData: Filme) => Promise<void>,
     removeFilme: (filmeData: Filme) => Promise<void>,
-    addAtorToFilme: (filmeId: string, atorData: Omit<Ator, 'id'>) => Promise<void>,
+    createAtorToFilme: (filmeId: string, atorData: Omit<Ator, 'id'>) => Promise<void>,
     atores: Ator[],
     getAtores: () => Promise<void>,
     addAtor: (atorData: Omit<Ator, 'id'>) => Promise<void>,
     editAtor: (atorData: Ator) => Promise<void>,
     removeAtor: (atorData: Ator) => Promise<void>,
-    loading: boolean
+    loading: boolean,
+    createFilmeToAtor: (atorId: string, filmeData: Partial<Filme>) => Promise<void>,
 }
 
 function Provider({ children }: ProviderProps) {
@@ -75,7 +76,7 @@ function Provider({ children }: ProviderProps) {
         }
     }
 
-    const addAtorToFilme = async (filmeId: string, atorData: Omit<Ator, 'id'>) => {
+    const createAtorToFilme = async (filmeId: string, atorData: Omit<Ator, 'id'>) => {
         try {
             await addAtorToFilme(filmeId, atorData);
             getFilmes();
@@ -132,19 +133,31 @@ function Provider({ children }: ProviderProps) {
         }
     }
 
+    const createFilmeToAtor = async (atorId: string, filmeData: Partial<Filme>) => {
+        try {
+            await addFilmeToAtor(atorId, filmeData);
+            getAtores();
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                console.log(error.message);
+            }
+        }
+    }
+
     const values: ProviderValues = {
         filmes,
         getFilmes,
         addFilme,
         editFilme,
         removeFilme,
-        addAtorToFilme,
+        createAtorToFilme,
         atores,
         getAtores,
         addAtor,
         editAtor,
         removeAtor,
-        loading
+        loading,
+        createFilmeToAtor
     }
 
     return (

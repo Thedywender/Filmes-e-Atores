@@ -5,18 +5,19 @@ import Filmes from './pages/filmes'
 import Atores from './pages/atores'
 import CreateFilms from './pages/createFilms'
 import CreateAtores from './pages/CreateAtores'
+import CreateAtoresInFilms from './pages/createAtoresInFilms'
 
 function App() {
 
   return (
     <Routes>
       <Route path='/filmes/createFilms' element={<CreateFilms/>}/>
+      <Route path='/filmes/createFilms/addAtorInFilms/:filmeId' element={<CreateAtoresInFilms/>}/>
       <Route path='/filmes' element={<Filmes/>}/>
       <Route path='/atores/createAtores' element={<CreateAtores/>}/>
       <Route path='/atores' element={<Atores/>}/>
       <Route path='/' element={<Inicio/>}/>
       <Route path='*' element={<Navigate to='/' />}/>
-
     </Routes>
   )
 }

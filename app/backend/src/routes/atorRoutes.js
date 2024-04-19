@@ -7,5 +7,6 @@ atoresRouter.get('/', atorController.getAllAtoresController);
 atoresRouter.delete('/:id', atorController.deleteAtorController);
 atoresRouter.post('/', atorController.createAtorController);
 atoresRouter.put('/:id', atorController.updateAtorController);
+atoresRouter.post('/:atorId/filmes', atorController.addMovieToAtorController);
 
 module.exports = atoresRouter;

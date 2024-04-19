@@ -1,4 +1,4 @@
-const { atores } = require('../models'); 
+const { atores, filmes, FilmesAtores } = require('../models'); 
 const { HttpRef } = require('../utils/httpstatus');
 
 const getAllAtores = async () => {
@@ -27,9 +27,25 @@ const deleteAtor = async (id) => {
   return { status: HttpRef('SUCCESS'), data: ator };
 }
 
+const addMovieToAtor = async (atorId, filmeData) => {
+  const ator = await atores.findByPk(atorId);
+  if (!ator) {
+    return {status: HttpRef('NOT_FOUND'), data: {message: 'Ator não encontrado'}};
+  }
+
+  const filme = await filmes.create(filmeData);
+  await FilmesAtores.create({ atorId, filmeId: filme.id });
+
+  const updatedAtor = await atores.findByPk(atorId, {include: [{model: filmes, as : 'filmes'}]});
+
+  return { status: HttpRef('SUCCESS'), data: updatedAtor };
+
+}
+
 module.exports = {
   getAllAtores,
   createAtor,
   updateAtor,
   deleteAtor,
+  addMovieToAtor,
 };

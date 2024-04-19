@@ -25,6 +25,10 @@ function Filmes() {
         setEditingFilmeState(filme);
     };
 
+    const addAtorToFilme = (filmeId: string) => {
+        navigate(`/filmes/createFilms/addAtorInFilms/${filmeId}`);
+    };
+
     return (
         <>
             <Header/>
@@ -75,10 +79,10 @@ function Filmes() {
                                 <p className={filme.disponivel ? 'disponivel' : 'indisponivel'}>
                                     Disponível: {filme.disponivel ? 'Yes' : 'No'}
                                 </p>
-                                <p>Atores: {filme.atores?.map(ator => ator.nome).join(', ')}</p>
                                 <div className="button-group">
                                     <button onClick={() => setEditFilme(filme)} className='button-create-init'>Editar</button>
                                     <button onClick={() => removeFilme(filme)} className='button-create-init'>Deletar</button>
+                                    <button onClick={() => addAtorToFilme(String(filme.id))} className='button-create-init'>Adicionar Ator</button>
                                 </div>
                             </>
                         )}

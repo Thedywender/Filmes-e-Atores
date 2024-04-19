@@ -1,10 +1,5 @@
 const URL = 'http://localhost:3001';
-
-export type Ator = {
-    nome: string,
-    data_nascimento: Date,
-    nacionalidade: string
-};
+import { Ator } from "./atoresApi";
 
 export type Filme = {
     id: number,
@@ -29,9 +24,6 @@ export async function fetchFilmes(): Promise<Filme[]> {
 }
 
 export async function postFilme(filme: Omit<Filme, 'id' |'atores'>) {
-    // type Filmedd = Omit<Filme, 'Atores' | 'id'>;
-    // const filmeAdd: Filmedd = filme;
-    // delete filmeAdd.atores;
     console.log(JSON.stringify(filme))
     const response = await fetch(`${URL}/filmes`, {
         method: 'POST',

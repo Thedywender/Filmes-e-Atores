@@ -1,4 +1,5 @@
 const URL = 'http://localhost:3001';
+import { Filme } from './filmesApi'
 
 export type Ator = {
     id: number,
@@ -52,6 +53,18 @@ export async function deleteAtor(ator: Ator) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(ator),
+    });
+    return response.json();
+}
+
+export async function addFilmeToAtor(atorId: string, filme: Partial<Filme>) {
+    const response = await fetch(`${URL}/atores/${atorId}/filmes`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(filme)
     });
     return response.json();
 }

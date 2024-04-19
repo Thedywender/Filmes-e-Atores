@@ -3,6 +3,7 @@ const {
     deleteAtor,
     createAtor,
     updateAtor,
+    addMovieToAtor,
  } = require('../service/atorService');
 
 const getAllAtoresController = async (_req, res) => {
@@ -45,10 +46,26 @@ const deleteAtorController = async (req, res) => {
         }
     };
 
+const addMovieToAtorController = async (req, res) => {
+    try {
+        const atorId = req.params.atorId;
+        const { titulo, ano_lancamento, disponivel } = req.body;
+        if (!titulo || !ano_lancamento || disponivel === undefined) {
+            return res.status(400).json({ message: 'Os campos titulo, ano de lançamento e disponivel são obrigatórios' });
+        }
+        const filmeData = { titulo, ano_lancamento, disponivel };
+        const result = await addMovieToAtor(atorId, filmeData);
+        res.status(result.status).json(result.data);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+        }
+    };
+
 
 module.exports = {
     getAllAtoresController,
     createAtorController,
     deleteAtorController,
     updateAtorController,
+    addMovieToAtorController,
 };
