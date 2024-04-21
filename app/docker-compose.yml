@@ -5,6 +5,8 @@ services:
     build: ./frontend
     ports:
       - 3000:3000
+    depends_on:
+      - backend
     working_dir: /app-frontend
     healthcheck:
       test: ["CMD", "lsof", "-t", "-i:3000"]
@@ -27,7 +29,7 @@ services:
       - DB_PORT=5432
       - DB_NAME=app
     healthcheck:
-      test: ["CMD", "lsof", "-t", "-i:3001"]
+      test: ["CMD", "curl", "-f", "http://backend:3001/ping"]
       timeout: 10s
       retries: 5
   db:

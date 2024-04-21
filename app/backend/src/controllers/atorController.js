@@ -4,12 +4,19 @@ const {
     createAtor,
     updateAtor,
     addMovieToAtor,
+    getAtorById,
  } = require('../service/atorService');
 
 const getAllAtoresController = async (_req, res) => {
     const { status, data } = await getAllAtores();
     return res.status(status).json(data);
     };
+    
+const getAtorByIdController = async (req, res) => {
+    const { status, data } = await getAtorById(req.params.id);
+    return res.status(status).json(data);
+    };
+
 
 const createAtorController = async (req, res) => {
     const { nome, data_nascimento, nacionalidade } = req.body;
@@ -68,4 +75,5 @@ module.exports = {
     deleteAtorController,
     updateAtorController,
     addMovieToAtorController,
+    getAtorByIdController,
 };

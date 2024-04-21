@@ -51,8 +51,8 @@ function CreateFilmes() {
                     <input type="text" name="filme" id="filme" placeholder="digite o nome do filme" value={filmeNome} onChange={(e) => setFilmeNome(e.target.value)} className='input-padrao-create'/>
                     <input type="text" name="ano_lancamento" id="ano_lancamento" placeholder="digite o ano de lançamento" value={dataFilme} onChange={(e) => setDataFilme(e.target.value)} className='input-padrao-create'/>
                     <label>
-                        <input type="checkbox" name="disponivel" id="disponivel" checked={disponivel} onChange={(e) => setDisponivel(e.target.checked)} />
-                        Disponível
+                        <input type="checkbox" name="disponivel" id="disponivel" checked={disponivel} onChange={(e) => setDisponivel(e.target.checked)} className='input-checkbox'/>
+                        <p>clique caso o filme estiver disponível</p>
                     </label>
                     <button type="submit" className='button-create-finish'>Criar Filme</button>
                     {erro && <p>{erro}</p>}

@@ -6,6 +6,14 @@ const getAllAtores = async () => {
   return { status: HttpRef('SUCCESS'), data: ator };
 };
 
+const getAtorById = async (id) => {
+  const ator = await atores.findByPk(id, {include: [{model: filmes, as : 'filmes'}]});
+  if (!ator) {
+    throw new Error('Ator não encontrado');
+  }
+  return { status: HttpRef('SUCCESS'), data: ator };
+}
+
 const createAtor = async (ator) => {
   const { nome, data_nascimento, nacionalidade } = ator;
   const newAtor = await atores.create({ nome, data_nascimento, nacionalidade });
@@ -48,4 +56,5 @@ module.exports = {
   updateAtor,
   deleteAtor,
   addMovieToAtor,
+  getAtorById,
 };

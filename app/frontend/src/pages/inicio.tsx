@@ -6,8 +6,8 @@ function Inicio(){
     return (
         <>
             <div className="main-content-inicio">
-                <h1>Escolha sua lista!</h1>
-                <h2>Filmes ou Atores!</h2>
+                <h1 className='h1-page-init'>Escolha sua lista!</h1>
+                <h2 className='h2-page-init'>Filmes ou Atores!</h2>
                 <Header/>
             </div>
         </>

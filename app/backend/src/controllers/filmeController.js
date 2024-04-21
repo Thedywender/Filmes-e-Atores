@@ -4,12 +4,18 @@ const {
   updateMovie,
   deleteMovie,
   addActorToMovie,
+  getMovieById,
 } = require('../service/filmeService');
 
 const getAllMoviesController = async (_req, res) => {
   const { status, data } = await getAllMovies();
   return res.status(status).json(data);
 };
+
+const getMovieByIdController = async (req, res) => {
+  const { status, data } = await getMovieById(req.params.id);
+  return res.status(status).json(data);
+}
 
 const createMovieController = async (req, res) => {
   const { titulo, ano_lancamento, disponivel } = req.body;
@@ -67,4 +73,5 @@ module.exports = {
   updateMovieController,
   deleteMovieController,
   addActorToMovieController,
+  getMovieByIdController,
 };

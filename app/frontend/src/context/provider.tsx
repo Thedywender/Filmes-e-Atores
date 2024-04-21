@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Context from "./Context";
-import { Filme, fetchFilmes, postFilme, putFilme, deleteFilme, addAtorToFilme } from "../../api/filmesApi";
-import { Ator, fetchAtores, postAtor, putAtor, deleteAtor, addFilmeToAtor } from "../../api/atoresApi";
+import { Filme, fetchFilmeById, fetchFilmes, postFilme, putFilme, deleteFilme, addAtorToFilme } from "../../api/filmesApi";
+import { Ator, fetchAtores, postAtor, putAtor, deleteAtor, addFilmeToAtor, fetchAtorById } from "../../api/atoresApi";
+import { AtorWithoutId, FilmeWithoutId } from "../../api/atoresApi";
 
 type ProviderProps = {
     children: React.ReactNode
@@ -10,17 +11,19 @@ type ProviderProps = {
 export type ProviderValues = {
     filmes: Filme[],
     getFilmes: () => Promise<void>,
+    getFilmeById: (id: number) => Promise<Filme>,
     addFilme: (filmeData: Omit<Filme, 'id' |'atores'>) => Promise<void>, 
     editFilme: (filmeData: Filme) => Promise<void>,
     removeFilme: (filmeData: Filme) => Promise<void>,
     createAtorToFilme: (filmeId: string, atorData: Omit<Ator, 'id'>) => Promise<void>,
     atores: Ator[],
     getAtores: () => Promise<void>,
+    getAtorById: (id: number) => Promise<Ator>,
     addAtor: (atorData: Omit<Ator, 'id'>) => Promise<void>,
     editAtor: (atorData: Ator) => Promise<void>,
     removeAtor: (atorData: Ator) => Promise<void>,
     loading: boolean,
-    createFilmeToAtor: (atorId: string, filmeData: Partial<Filme>) => Promise<void>,
+    createFilmeToAtor: (atorId: string, filmeData: FilmeWithoutId) => Promise<void>,
 }
 
 function Provider({ children }: ProviderProps) {
@@ -40,6 +43,20 @@ function Provider({ children }: ProviderProps) {
             }
         } finally {
             setLoading(false);
+        }
+    }
+
+    const getFilmeById = async (id: number): Promise<Filme> => {
+        try {
+            const filme = await fetchFilmeById(id);
+            setFilmes([filme]);
+            setAtores(filme.atores);
+            return filme;
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                console.log(error.message);
+            }
+            throw error;
         }
     }
 
@@ -76,10 +93,11 @@ function Provider({ children }: ProviderProps) {
         }
     }
 
-    const createAtorToFilme = async (filmeId: string, atorData: Omit<Ator, 'id'>) => {
+    const createAtorToFilme = async (filmeId: string, atorData: AtorWithoutId) => {
         try {
-            await addAtorToFilme(filmeId, atorData);
+            const response = await addAtorToFilme(filmeId, atorData);
             getFilmes();
+            return response;
         } catch (error: unknown) {
             if (error instanceof Error) {
                 console.log(error.message);
@@ -98,6 +116,20 @@ function Provider({ children }: ProviderProps) {
             }
         } finally {
             setLoading(false);
+        }
+    }
+
+    const getAtorById = async (id: number): Promise<Ator> => {
+        try {
+            const ator = await fetchAtorById(id);
+            setAtores([ator]);
+            setFilmes(ator.filmes || []);
+            return ator;
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                console.log(error.message);
+            }
+            throw error;
         }
     }
 
@@ -133,7 +165,7 @@ function Provider({ children }: ProviderProps) {
         }
     }
 
-    const createFilmeToAtor = async (atorId: string, filmeData: Partial<Filme>) => {
+    const createFilmeToAtor = async (atorId: string, filmeData: FilmeWithoutId) => {
         try {
             await addFilmeToAtor(atorId, filmeData);
             getAtores();
@@ -147,6 +179,7 @@ function Provider({ children }: ProviderProps) {
     const values: ProviderValues = {
         filmes,
         getFilmes,
+        getFilmeById,
         addFilme,
         editFilme,
         removeFilme,
@@ -157,7 +190,8 @@ function Provider({ children }: ProviderProps) {
         editAtor,
         removeAtor,
         loading,
-        createFilmeToAtor
+        createFilmeToAtor,
+        getAtorById,
     }
 
     return (

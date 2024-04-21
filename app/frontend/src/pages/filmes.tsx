@@ -26,7 +26,7 @@ function Filmes() {
     };
 
     const addAtorToFilme = (filmeId: string) => {
-        navigate(`/filmes/createFilms/addAtorInFilms/${filmeId}`);
+        navigate(`/filmes/addAtorInFilms/${filmeId}`);
     };
 
     return (
@@ -34,7 +34,7 @@ function Filmes() {
             <Header/>
             <div className="main-content-filmes">
             <button onClick={createFilme} className='button-create'>Clique aqui e crie seus Filmes</button>
-            <h1>Lista de Filmes</h1>
+            <h1 className='h1-list-entytie'>Lista de Filmes</h1>
             <div className='filmes-container'>
                 {filmes.map(filme => (
                     <div key={filme.id} className='filme'>
@@ -74,6 +74,7 @@ function Filmes() {
                             </form>
                         ) : (
                             <>
+                            <div className='container-map-items'>
                                 <h2>{filme.titulo}</h2>
                                 <p>Ano de lançamento: {filme.ano_lancamento}</p>
                                 <p className={filme.disponivel ? 'disponivel' : 'indisponivel'}>
@@ -82,8 +83,9 @@ function Filmes() {
                                 <div className="button-group">
                                     <button onClick={() => setEditFilme(filme)} className='button-create-init'>Editar</button>
                                     <button onClick={() => removeFilme(filme)} className='button-create-init'>Deletar</button>
-                                    <button onClick={() => addAtorToFilme(String(filme.id))} className='button-create-init'>Adicionar Ator</button>
+                                    <button onClick={() => addAtorToFilme(String(filme.id))} className='button-add-element'>Adicionar Ator</button>
                                 </div>
+                            </div>
                             </>
                         )}
                     </div>

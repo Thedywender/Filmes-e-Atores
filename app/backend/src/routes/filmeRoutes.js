@@ -20,6 +20,7 @@ filmesRouter.get('/', async (_req, res) => {
   return res.status(200).json(addfilmes);
 });
 filmesRouter.post('/', filmeController.createMovieController);
+filmesRouter.get('/:id', filmeController.getMovieByIdController);
 filmesRouter.put('/:id', filmeController.updateMovieController);
 filmesRouter.delete('/:id', filmeController.deleteMovieController);
 filmesRouter.post('/:filmeId/atores', filmeController.addActorToMovieController);

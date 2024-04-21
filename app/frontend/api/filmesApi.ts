@@ -23,6 +23,23 @@ export async function fetchFilmes(): Promise<Filme[]> {
     }
 }
 
+export async function fetchFilmeById(id: number): Promise<Filme> {
+    try {
+        const response = await fetch(`${URL}/filmes/${id}`);
+        if (!response.ok) {
+            throw new Error('Serviço indisponível');
+        }
+        const data = await response.json();
+        // console.log(data);
+        return data as Filme;
+    } catch (e: unknown) {
+        if (e instanceof Error) {
+            console.log(e.message);
+        }
+        throw e;
+    }
+}
+
 export async function postFilme(filme: Omit<Filme, 'id' |'atores'>) {
     console.log(JSON.stringify(filme))
     const response = await fetch(`${URL}/filmes`, {
@@ -61,13 +78,19 @@ export async function deleteFilme(filme: Filme) {
 }
 
 export async function addAtorToFilme(filmeId: string, ator: { nome: string, data_nascimento: string, nacionalidade: string }) {
-    const response = await fetch(`${URL}/filmes/${filmeId}/atores`, {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(ator)
-    });
-    return response.json();
+    try {
+        const response = await fetch(`${URL}/filmes/${filmeId}/atores`, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(ator)
+        });
+        const data = await response.json();
+        console.log(data); // Adicione esta linha
+        return data;
+    } catch (error) {
+        console.error('Erro na requisição:', error);
+    }
 }

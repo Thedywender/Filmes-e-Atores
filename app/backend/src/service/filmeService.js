@@ -6,10 +6,18 @@ const getAllMovies = async () => {
   return { status: HttpRef('SUCCESS'), data: filme };
 };
 
+const getMovieById = async (id) => {
+  const filme = await filmes.findByPk(id, {include: [{model: atores, as : 'atores'}]});
+  if (!filme) {
+    return {status: HttpRef('NOT_FOUND'), data: {message: 'Filme não encontrado'}};
+  }
+  return { status: HttpRef('SUCCESS'), data: filme };
+}
+
 const createMovie = async (filme) => {
   const { titulo, ano_lancamento, disponivel } = filme;
   const newMovie = await filmes.create({ titulo, ano_lancamento, disponivel });
-  return { status: 201, data: newMovie };
+  return { status: HttpRef('CREATED'), data: newMovie };
 }
 
 const updateMovie = async (id, filmeData) => {
@@ -47,4 +55,5 @@ module.exports = {
   updateMovie,
   deleteMovie,
   addActorToMovie,
+  getMovieById,
 };

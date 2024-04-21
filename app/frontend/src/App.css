@@ -1,22 +1,25 @@
 body {
-  background-color: #d1c1c1;
+  background-color: #252323;
   margin-top: 5rem;
   padding-top: 13em;
 }
+
+.main-content-inicio,
+.main-content-create {
+  margin-top: 100px;
+}
+
 .main-content-filmes {
-  margin-top: -140px;
+  margin-top: -170px;
 }
 
 .main-content-atores {
-  margin-top: 125px;
+  margin-top: 255px;
 }
 
-.main-content-inicio {
-  margin-top: -250px;
-}
-
+.main-content-inicio,
 .main-content-create {
-  margin-top: -300px;
+  margin-top: -250px;
 }
 
 #root {
@@ -24,6 +27,15 @@ body {
   margin: 0 auto;
   padding: 1rem;
   text-align: center;
+}
+
+.h1-list-entytie, .h2-page-init {
+  font-size: 50px;
+  margin-bottom: 30px;
+}
+
+.h1-page-init {
+  font-size: 90px;
 }
 
 .disponivel {
@@ -34,38 +46,78 @@ body {
   color: red;
 }
 
-.filmes-container, .atores-container {
+.filmes-container,
+.atores-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
 }
 
-.ator {
-  background-color: #A9A9A9;
-  flex: 0 0 calc(33.3333% - 2rem);
+.ator,
+.filme {
   margin: 1rem;
-  padding: 1rem 1rem 3rem 1 rem;
-  background-color: #A9A9A9;
+  padding: 1rem;
+  background-color: #443c3c;
   border-radius: 10px;
-  height: 150px;
-  overflow: auto;
+  flex: 0 0 calc(33.3333% - 2rem);
+  padding-bottom: 2rem;
+  width: 400px;
+  height: 180px;
 }
 
-.filme {
-  background-color: #A9A9A9;
-  flex: 0 0 calc(33.3333% - 2rem);
-  margin: 1rem;
-  padding: 1em;
-  background-color: #A9A9A9;
-  border-radius: 10px;
-  height: 200px;
-  /* overflow: auto; */
+
+.item-quadro,
+.input-padrao,
+.button-create-finish,
+.input-padrao-create {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px;
+}
+
+.input-checkbox {
+  width: 20px;
+  height: 20px;
+  margin-right: 15px;
+  cursor: pointer; /* Muda o cursor para um ponteiro */
+  transform: scale(1.5); /* Aumenta o tamanho do checkbox */
+}
+
+.input-checkbox:checked {
+  background-color: #4CAF50; /* Muda a cor de fundo quando o checkbox é selecionado */
+}
+
+.input-checkbox:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Adiciona uma sombra quando o mouse passa sobre o checkbox */
+}
+
+.button-create {
+  border: 1px solid #ccc;
+  background-color: #1d631f;
+  color: rgb(248, 223, 30);
+  font-size: 17px;
+  font-weight: bolder;
+  width: 20px;
+  height: 50px;
+  padding: 1px;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  text-shadow: 0px 3px 6px rgba(200, 237, 237, 0.46);
+  margin-bottom: 50px;
+  width: 300px !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer; 
+}
+
+.button-create:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .item-quadro {
   background-color: #D3D3D3;
-  border-radius: 5px;
-  padding: 1rem;
   margin: 1rem;
 }
 
@@ -77,9 +129,9 @@ body {
   left: 0;
   right: 0;
   height: 80px;
-  background-color: #dce1e6;
+  background-color: #272323;
   z-index: 1000;
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  box-shadow: 0px 3px 6px rgba(150, 146, 146, 0.16);
 }
 
 .header-link {
@@ -100,35 +152,7 @@ body {
   margin: 0;
 }
 
-
-.button-create {
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-  margin-bottom: 10px;
-  width: 50%;
-  height: 50px;
-  background-color: rgb(75, 74, 74);
-  color: rgb(35, 219, 90);
-}
-
 .input-padrao {
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-  margin-bottom: 10px;
-  width: 50%;
-  height: 50px;
-}
-
-.button-create-finish {
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-  margin-bottom: 10px;
   width: 50%;
   height: 50px;
 }
@@ -140,42 +164,55 @@ body {
 }
 
 .form-container p {
-  font-size: 1.5em;
+  font-size: 1.2em;
   font-weight: bold;
   margin-bottom: 20px;
 }
 
 .input-padrao-create {
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
   margin-bottom: 20px;
   width: 400px;
 }
 
-.button-create-finish {
-  padding: 10px 20px;
-  border: none;
+.button-add-element,
+.button-create-init {
   border-radius: 4px;
   background-color: #4CAF50;
-  color: white;
+  color: rgba(34, 20, 2, 0.788);
   cursor: pointer;
   margin-top: 10px;
 }
 
+.button-add-element,
 .button-create-init {
-  border-radius: 4px;
-  background-color: #4CAF50;
-  color: white;
-  cursor: pointer;
-  margin-top: 10px;
-  width: 90px;
+  width: 140px;
   height: 30px;
+  margin-bottom: 50px;
+  box-shadow: 0px 3px 6px rgba(245, 245, 245, 0.46);
+  cursor: pointer;
+}
+
+.button-create-init {
+  width: 90px;
+}
+
+.button-create-finish {
+  width: 70%;
+  height: 50px;
+  background-color: rgb(42, 177, 94);
+  font-size: 20px;
+  font-weight: bold;
+  text-shadow: opx 3px 6px rgba(7, 94, 94, 0.46);
+  box-shadow: 0px 3px 6px rgba(184, 32, 32, 0.46);
+  color: rgb(43, 40, 5) !important;
+  margin-bottom: 50px;
+  margin-top: 20px;
+  cursor: pointer;
 }
 
 .button-group {
   display: flex;
   justify-content: space-around;
-  padding: 10px;
+  padding: 5px;
 }
+

@@ -10,5 +10,8 @@ app.use(express.json());
 
 app.use('/filmes', filmesRouter);
 app.use('/atores', atoresRouter);
+app.get("/ping", (req, res) => {
+    res.send("pong");
+});
 
 module.exports = app;
